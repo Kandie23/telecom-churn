@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
 **Author:** Jeff Kandie  
-**LinkedIn:** [https://www.linkedin.com/in/jeffkandie](https://www.linkedin.com/in/jeffkandie)  
+**LinkedIn:** https://www.linkedin.com/in/jeff-kandie/
 
 ---
 
