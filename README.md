@@ -1,124 +1,133 @@
-📞 KTL Customer Churn Prediction Project
+# 📞 KTL Customer Churn Prediction Project
 
-Author: Jeff Kandie
-LinkedIn: https://www.linkedin.com/in/jeff-kandie/
+[![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python&logoColor=white)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-Project Overview
+**Author:** Jeff Kandie  
+**LinkedIn:** [https://www.linkedin.com/in/jeffkandie](https://www.linkedin.com/in/jeffkandie)  
 
-This project focuses on predicting customer churn for KTL Telecommunications, a critical problem in the telecom industry where high competition and low switching barriers make retaining customers essential. Accurately identifying customers likely to churn allows the company to proactively implement retention strategies, reduce costs, and improve service quality.
+---
 
-Business Understanding
+## Table of Contents
+- [Project Overview](#project-overview)
+- [Business Understanding](#business-understanding)
+- [Data Understanding](#data-understanding)
+- [Data Preparation & Feature Engineering](#data-preparation--feature-engineering)
+- [Modeling](#modeling)
+- [Key Insights](#key-insights)
+- [Recommendations](#recommendations)
+- [Tools & Libraries](#tools--libraries)
+- [Conclusion](#conclusion)
+- [License](#license)
 
-Problem: KTL faces significant revenue loss due to customer churn. Without predictive insights, marketing efforts are inefficient and resources are wasted on loyal customers.
+---
 
-Impact: High churn directly affects profitability and signals potential service issues.
+## Project Overview
+This project focuses on predicting **customer churn** for KTL Telecommunications, a critical issue in the highly competitive telecom industry. Accurately identifying customers likely to churn allows the company to:  
+- Proactively implement retention strategies  
+- Reduce customer acquisition costs  
+- Improve service quality and profitability  
 
-Objective: Build a predictive model to identify high-risk churn customers and provide actionable insights for retention.
+---
 
-Key Metrics:
+## Business Understanding
+- **Problem:** KTL experiences significant revenue loss due to customer churn. Without predictive insights, marketing and retention efforts are inefficient.  
+- **Impact:** High churn directly affects profitability and signals potential service issues.  
+- **Objective:** Build a predictive model to identify high-risk churn customers and provide actionable insights.
 
-Accuracy > 75%
+**Key Metrics:**
+- Accuracy > 75%
+- Recall > 70% (to detect churners effectively)
 
-Recall > 70% (to ensure high detection of churners)
+---
 
-Data Understanding
+## Data Understanding
+The dataset contains **21 columns** describing customer demographics, account details, service usage, and subscription plans.  
 
-The dataset contains 21 columns representing customer demographics, account details, service usage, and subscription plans. Key features include:
+**Key Features:**
+| Feature | Description |
+|---------|-------------|
+| account length | Customer tenure |
+| international plan | Subscription status (Yes/No) |
+| voice mail plan | Subscription status (Yes/No) |
+| total day/eve/night/intl minutes & calls | Call usage patterns |
+| customer service calls | Number of support interactions |
+| churn | Target variable (1 = churned, 0 = retained) |
 
-account length: Customer tenure
+**EDA Observations:**
+- High **customer service calls** → higher churn probability  
+- **International plan users** → 42% churn rate  
+- **Voicemail plan subscribers** → lower churn (~8.7%)  
+- Heavy daytime usage → higher dissatisfaction and churn risk  
 
-international plan & voice mail plan: Subscription plans
+---
 
-total day/eve/night/intl minutes & calls: Call usage patterns
+## Data Preparation & Feature Engineering
+1. **Cleaning:** Removed duplicates, phone numbers, and handled missing values.  
+2. **Encoding:** Categorical variables encoded to numeric values.  
+3. **Feature Engineering:**  
+   - `call_intensity` – average call duration  
+   - `service_frustration` – flag for ≥4 service calls  
+   - `plan_combo` – interaction of international and voicemail plan  
+   - `day_usage_bin` – binned daytime usage  
+4. **Scaling:** StandardScaler for numeric features  
+5. **Class Balancing:** SMOTE applied to handle imbalanced target variable  
 
-customer service calls: Number of support interactions
+---
 
-churn: Target variable (1 if customer churned, 0 otherwise)
+## Modeling
+Models tested: Logistic Regression, Decision Tree, Random Forest, XGBoost  
 
-Observations from Exploratory Data Analysis (EDA):
+| Model                 | Accuracy | Recall |
+|-----------------------|----------|--------|
+| Logistic Regression    | ~91%    | ~65%   |
+| Decision Tree          | ~92%    | ~68%   |
+| Random Forest          | ~93%    | ~74%   |
+| XGBoost                | ~94%    | ~76%   |
 
-Customers with high service calls are more likely to churn.
+**Top features influencing churn:**  
+1. `international plan`  
+2. `customer service calls`  
+3. `total day minutes`  
+4. `total day charge`  
+5. `call_intensity`  
 
-International plan users have a higher churn rate (~42%) compared to non-users.
+**Best-performing models for deployment:** Random Forest & XGBoost (after SMOTE balancing)  
 
-Voicemail plan subscribers show lower churn (~8.7%).
+---
 
-Heavy daytime users pay higher charges and are more likely to leave.
+## Key Insights
+- **Frequent support calls** = major churn signal  
+- **High daytime usage** = higher dissatisfaction  
+- **International plan** = strong churn driver  
+- **Voicemail plan** = reduces churn, increases engagement  
+- **Heavy users with service issues** = highest churn risk  
 
-Data Preparation & Feature Engineering
+---
 
-Cleaning: Removed phone numbers and duplicate records, handled missing values.
+## Recommendations
+1. **Retention Programs:** Target high-risk churn customers with personalized offers.  
+2. **Service Improvements:** Improve customer support efficiency.  
+3. **Plan Optimization:** Reevaluate international plan pricing and value.  
+4. **Engagement Initiatives:** Promote value-added services like voicemail.  
+5. **Monitoring:** Implement real-time churn prediction dashboards.  
 
-Encoding: Converted categorical variables (plans, bins) into numeric representations.
+---
 
-Feature Engineering:
+## Tools & Libraries
+- Python: `pandas`, `numpy`, `matplotlib`, `seaborn`, `scikit-learn`, `xgboost`  
+- Imbalanced-learn: `SMOTE` for class balancing  
+- Statistical analysis: `scipy.stats`  
 
-call_intensity – average call duration
+---
 
-service_frustration – flag for customers with ≥4 service calls
+## Conclusion
+The project successfully built a **predictive churn model** for KTL with high recall. The insights allow KTL to:  
+- Identify high-risk churn customers early  
+- Optimize retention strategies  
+- Reduce revenue loss and improve customer satisfaction  
 
-plan_combo – interaction between international and voicemail plan
+---
 
-day_usage_bin – binned daytime usage
-
-Scaling & Preprocessing: StandardScaler applied to numerical features; One-Hot Encoding for categorical variables.
-
-Class Balancing: Used SMOTE to handle class imbalance.
-
-Modeling
-
-Tested multiple models including:
-
-Model	Accuracy	Recall
-Logistic Regression	~91%	~65%
-Decision Tree	~92%	~68%
-Random Forest	~93%	~74%
-XGBoost	~94%	~76%
-
-Top features influencing churn:
-
-international plan
-
-customer service calls
-
-total day minutes
-
-total day charge
-
-call_intensity
-
-Best-performing models for deployment: Random Forest and XGBoost (after SMOTE balancing).
-
-Key Insights
-
-Customers contacting support frequently and with high daytime usage are more likely to churn.
-
-International plan users have significantly higher churn risk.
-
-Voicemail plan reduces churn, acting as a loyalty feature.
-
-Heavy users experiencing high charges with unresolved issues are prime targets for retention campaigns.
-
-Recommendations
-
-Retention Programs: Target high-risk churn customers (high day usage, multiple service calls, international plan users) with personalized offers.
-
-Service Improvements: Enhance customer support efficiency to reduce frustration.
-
-Plan Optimization: Review international plan pricing and features for better value.
-
-Engagement Initiatives: Promote voicemail and other value-added services to increase loyalty.
-
-Continuous Monitoring: Implement real-time churn prediction dashboards for proactive interventions.
-
-Tools & Libraries
-
-Python: pandas, numpy, matplotlib, seaborn, scikit-learn, xgboost
-
-Imbalanced-learn: SMOTE for class balancing
-
-Statistical analysis: scipy.stats
-
-Conclusion
-
-The project successfully built a predictive churn model for KTL with high recall, allowing early identification of at-risk customers. By combining insights from feature importance and statistical analysis, KTL can target retention strategies effectively, reduce customer loss, and improve overall profitability
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
